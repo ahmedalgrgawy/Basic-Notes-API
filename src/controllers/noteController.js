@@ -5,23 +5,14 @@ var model = require('../models/note.model');
 
 
 exports.getAllNotes = (req, res) => {
-    // var id = generator.generate();
-    // var id2 = generator.generate();
-
-    // memory.store.setItem(id, "test 1")
-    // memory.store.setItem(id2, "test 2")
-
     // var keys = memory.getKeys()
-    // var values = memory.getValues()
+    var values = memory.getValues()
 
-    // var Note = model.Note
-    // var noteObj = new Note(id, "aa", "aa", "dd", new Date())
-
-    // console.log(noteObj);
+    return res.status(201).send(JSON.stringify(values))
 
 }
 
-exports.saveNote = async (req, res) => {
+exports.saveNote = (req, res) => {
 
     var id = generator.generate();
     var createdBy = "admin"
