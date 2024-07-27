@@ -18,7 +18,7 @@ exports.saveNote = (req, res) => {
     var createdBy = "admin"
     var createdOn = new Date()
 
-    const { title, content } = req.body
+    var { title, content } = req.body
 
     if (!title || !content) {
         return res.status(500).send({ error: "Title and Content is Required" })
@@ -34,7 +34,33 @@ exports.saveNote = (req, res) => {
 }
 
 exports.updateNote = (req, res) => {
-    res.send("updateNote notes...")
+    var createdBy = "admin"
+    var createdOn = new Date()
+
+    var { noteId, title, content } = req.body
+
+    if (!noteId) {
+        return res.status(500).send({ error: "Note Id is Required" })
+    }
+
+    if (!title || !content) {
+        return res.status(500).send({ error: "Title and Content is Required" })
+    }
+
+    var note = memory.store.getItem(noteId)
+
+    if (!note) {
+        return res.status(500).send({ error: "Note does not exist" })
+    }
+
+    var Note = model.Note
+    var noteObj = new Note(noteId, title, content, createdBy, createdOn)
+
+    memory.store.setItem(id, noteObj)
+
+    return res.status(200).send({ message: "Note Updated" })
+
+
 }
 
 exports.deleteNote = (req, res) => {
