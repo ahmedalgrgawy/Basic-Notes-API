@@ -64,5 +64,20 @@ exports.updateNote = (req, res) => {
 }
 
 exports.deleteNote = (req, res) => {
-    res.send("deleteNote notes...")
+    var noteId = req.params.noteId;
+
+    if (!noteId) {
+        return res.status(500).send({ error: "Can Not Delete Empty Delete" })
+    }
+
+    var note = memory.store.getItem(noteId)
+
+    if (!note) {
+        return res.status(500).send({ error: "Note does not exist" })
+    }
+
+    memory.store.removeItem(noteId)
+
+    return res.status(200).send({ message: "Note Deleted" })
+
 }

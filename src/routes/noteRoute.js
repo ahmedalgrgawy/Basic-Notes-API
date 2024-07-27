@@ -10,7 +10,7 @@ router.post('/notes/save', () => {
     noteController.saveNote()
 })
 
-router.put('/notes/update/:id', () => {
+router.put('/notes/update/', () => {
     noteController.updateNote()
 })
 
